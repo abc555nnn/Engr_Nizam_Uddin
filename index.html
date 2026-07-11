@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nizam Uddin | IT Specialist & Designer Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* CSS Reset & Variables */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --primary: #38bdf8;
+            --secondary: #818cf8;
+            --border-color: rgba(51, 65, 85, 0.6);
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Container */
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 3;
+        }
+
+        /* Navbar */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(11, 15, 25, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 0;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: 1px;
+        }
+
+        .nav-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            margin-left: 2rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Creative Section Background Wrapper */
+        section {
+            position: relative;
+            padding: 7rem 0;
+            border-bottom: 1px solid rgba(51, 65, 85, 0.3);
+            overflow: hidden;
+        }
+
+        /* Transparency Adjusted IT Image Backgrounds */
+        section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Section overlay for unique depth */
+        section::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(11, 15, 25, 0.2), var(--bg-color));
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        /* Specific Background Images with low opacity for high creativity */
+        #hero::before {
+            background-image: url('https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=1200'); /* Cyber code theme */
+            opacity: 0.05;
+        }
+
+        #skills::before {
+            background-image: url('https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200'); /* Circuit Board hardware theme */
+            opacity: 0.03;
+        }
+
+        #certificates::before {
+            background-image: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1200'); /* Global network server theme */
+            opacity: 0.04;
+        }
+
+        #experience::before {
+            background-image: url('https://images.unsplash.com/photo-1607799279861-4dd421887fb3?q=80&w=1200'); /* Tech Infrastructure theme */
+            opacity: 0.03;
+        }
+
+        #projects::before {
+            background-image: url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1200'); /* Development layout theme */
+            opacity: 0.04;
+        }
+
+        /* Hero Content Adjustment */
+        #hero {
+            display: flex;
+            align-items: center;
+            min-height: 90vh;
+            padding-top: 9rem;
+        }
+
+        .hero-content {
+            max-width: 750px;
+        }
+
+        .badge {
+            background-color: rgba(56, 189, 248, 0.12);
+            color: var(--primary);
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            backdrop-filter: blur(5px);
+        }
+
+        h1 {
+            font-size: 3.8rem;
+            font-weight: 700;
+            margin-bottom: 1.2rem;
+            background: linear-gradient(to right, var(--text-main), var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -1px;
+        }
+
+        .hero-p {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            margin-bottom: 2.5rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: #0b0f19;
+            padding: 0.9rem 2.2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(56, 189, 248, 0.25);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(56, 189, 248, 0.4);
+        }
+
+        /* Section Global Titles */
+        .section-title {
+            font-size: 2.2rem;
+            margin-bottom: 4rem;
+            position: relative;
+            display: inline-block;
+            letter-spacing: -0.5px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            width: 60%;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+
+        /* Core Skills Grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .skill-card {
+            background-color: var(--card-bg);
+            padding: 2.5rem 2rem;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            transition: all 0.3s ease;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(56, 189, 248, 0.1);
+        }
+
+        .skill-card i {
+            font-size: 2.8rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to bottom right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .skill-card h3 {
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+
+        .skill-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Infinite Auto-Scrolling Certificates */
+        .slider-container {
+            overflow: hidden;
+            width: 100%;
+            padding: 2rem 0;
+            position: relative;
+            z-index: 3;
+        }
+
+        .slider-container::before, .slider-container::after {
+            background: linear-gradient(to right, var(--bg-color) 0%, rgba(11, 15, 25, 0) 100%);
+            content: "";
+            height: 100%;
+            position: absolute;
+            width: 150px;
+            z-index: 5;
+            pointer-events: none;
+        }
+        .slider-container::before { left: 0; top: 0; }
+        .slider-container::after { right: 0; top: 0; transform: rotateZ(180deg); }
+
+        .slider-track {
+            display: flex;
+            width: calc(320px * 10);
+            animation: scroll-left 28s linear infinite;
+        }
+
+        .slider-track:hover {
+            animation-play-state: paused;
+        }
+
+        .cert-card {
+            width: 300px;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: 14px;
+            padding: 1.2rem;
+            margin: 0 12px;
+            flex-shrink: 0;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .cert-card:hover {
+            border-color: var(--primary);
+            transform: scale(1.02);
+        }
+
+        .cert-placeholder-img {
+            width: 100%;
+            height: 170px;
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.9));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            border: 1px dashed rgba(71, 85, 105, 0.5);
+        }
+
+        .cert-placeholder-img i {
+            font-size: 2.8rem;
+            color: var(--primary);
+        }
+
+        .cert-card h4 {
+            font-size: 1rem;
+            margin-bottom: 0.4rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .cert-card p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        @keyframes scroll-left {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-320px * 5)); }
+        }
+
+        /* Timeline / Experience */
+        .timeline {
+            position: relative;
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 2px;
+            background-color: var(--border-color);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -1px;
+        }
+
+        .timeline-item {
+            padding: 1rem 2.5rem;
+            position: relative;
+            background-color: transparent;
+            width: 50%;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            right: -8px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: 4px solid var(--bg-color);
+            top: 18px;
+            border-radius: 50%;
+            z-index: 10;
+        }
+
+        .left { left: 0; }
+        .right { left: 50%; }
+        .right::after { left: -8px; }
+
+        .timeline-content {
+            padding: 1.8rem;
+            background-color: var(--card-bg);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            transition: border-color 0.3s ease;
+        }
+        .timeline-content:hover {
+            border-color: var(--secondary);
+        }
+
+        .timeline-date {
+            color: var(--primary);
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 0.6rem;
+            letter-spacing: 0.5px;
+        }
+
+        /* Projects & Gallery */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .project-card {
+            background-color: var(--card-bg);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
+        .project-img {
+            height: 190px;
+            background: linear-gradient(135deg, rgba(30, 27, 75, 0.6), rgba(49, 16, 66, 0.6));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            color: rgba(255,255,255,0.08);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .project-info {
+            padding: 1.8rem;
+        }
+
+        .project-info h4 { font-size: 1.2rem; margin-bottom: 0.6rem; }
+        .project-info p { 
+            color: var(--text-muted); 
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .project-link:hover {
+            color: var(--secondary);
+        }
+
+        /* Footer */
+        footer {
+            background-color: #05070f;
+            padding: 4rem 0;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            position: relative;
+            z-index: 5;
+        }
+
+        .social-icons a {
+            color: var(--text-main);
+            font-size: 1.6rem;
+            margin: 0 1.2rem;
+            transition: color 0.3s;
+        }
+
+        .social-icons a:hover { color: var(--primary); }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.8rem; }
+            .nav-links { display: none; }
+            .timeline::after { left: 31px; }
+            .timeline-item { width: 100%; padding-left: 70px; padding-right: 20px; }
+            .timeline-item::after { left: 23px; }
+            .right { left: 0%; }
+            section { padding: 5rem 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="container nav-container">
+            <div class="logo">Nizam.Dev</div>
+            <div class="nav-links">
+                <a href="#hero">Home</a>
+                <a href="#skills">Skills</a>
+                <a href="#certificates">Certificates</a>
+                <a href="#experience">Experience</a>
+                <a href="#projects">Projects</a>
+            </div>
+        </div>
+    </nav>
+
+    <section id="hero">
+        <div class="container hero-content">
+            <span class="badge">MSc in Computer Science & Engineering</span>
+            <h1>Nizam Uddin</h1>
+            <p class="hero-p">IT Support Specialist, Network Operator & Graphic Designer with over 9 years of professional experience in maintaining systems, securing networks, and visual communication.</p>
+            <a href="mailto:abc555nnn@gmail.com" class="btn"><i class="fa-solid fa-envelope"></i> Let's Work Together</a>
+        </div>
+    </section>
+
+    <section id="skills">
+        <div class="container">
+            <h2 class="section-title">Core Expertise</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <i class="fa-solid fa-network-wired"></i>
+                    <h3>IT & Networking</h3>
+                    <p>Hands-on troubleshooting, hardware & software maintenance, CCNA routing & switching, and CCTV setup.</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <h3>Cyber Security</h3>
+                    <p>Log analysis for cyber defense, digital security agency frameworks, and securing organizational assets.</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fa-solid fa-palette"></i>
+                    <h3>Graphic Design</h3>
+                    <p>Professional visual branding using Adobe Photoshop, Adobe Illustrator, and CorelDRAW.</p>
+                </div>
+
+                <div class="skill-card">
+                    <i class="fa-solid fa-network-wired"></i>
+                    <h3>Professional Photography</h3>
+                    <p>Capturing, Photo Editing, Color Grading, Viedeography</p>
+                </div>
+
+
+            </div>
+        </div>
+    </section>
+
+    <section id="certificates">
+        <div class="container">
+            <h2 class="section-title">Certifications & Achievements</h2>
+        </div>
+        <div class="slider-container">
+            <div class="slider-track">
+                
+                <div class="cert-card">
+                    <div class="cert-placeholder-img">
+                        <i class="fa-solid fa-award"></i>
+                    </div>
+                    <h4>CCNA Certification</h4>
+                    <p>Simplilearn Skill Up (2026)</p>
+                </div>
+
+                <div class="cert-card">
+                    <div class="cert-placeholder-img">
+                        <i class="fa-solid fa-shield"></i>
+                    </div>
+                    <h4>Cyber Defense Log Analysis</h4>
+                    <p>RED Team Leaders (2026)</p>
+                </div>
+
+                <div class="cert-card">
+                    <div class="cert-placeholder-img">
+                        <i class="fa-solid fa-video"></i>
+                    </div>
+                    <h4>Video Production</h4>
+                    <p>a2i Program (2021)</p>
+                </div>
+
+                <div class="cert-card">
+                    <div class="cert-placeholder-img">
+                        <i class="fa-solid fa-laptop-code"></i>
+                    </div>
+                    <h4>Report Management (RMS)</h4>
+                    <p>a2i Program (2023)</p>
+                </div>
+
+                <div class="cert-card">
+                    <div class="cert-placeholder-img">
+                        <i class="fa-solid fa-camera"></i>
+                    </div>
+                    <h4>Professional Photography</h4>
+                    <p>Mobile Photography (2020)</p>
+                </div>
+
+                <div class="cert-card">
+                    <img src="https://png.pngtree.com/png-clipart/20230405/original/pngtree-cartoon-cat-cute-kitten-kitty-sticker-png-image_9029329.png" style="width:80%; height:80%; object-fit:cover;">
+                    <h4>CCNA Certification</h4>
+                    <p>Simplilearn Skill Up (2026)</p>
+                </div>
+                <div class="cert-card">
+                    <div class="cert-placeholder-img"><i class="fa-solid fa-shield"></i></div>
+                    <h4>Cyber Defense Log Analysis</h4>
+                    <p>RED Team Leaders (2026)</p>
+                </div>
+                <div class="cert-card">
+                    <div class="cert-placeholder-img"><i class="fa-solid fa-video"></i></div>
+                    <h4>Video Production</h4>
+                    <p>a2i Program (2021)</p>
+                </div>
+                <div class="cert-card">
+                    <div class="cert-placeholder-img"><i class="fa-solid fa-laptop-code"></i></div>
+                    <h4>Report Management (RMS)</h4>
+                    <p>a2i Program (2023)</p>
+                </div>
+                <div class="cert-card">
+                    <div class="cert-placeholder-img"><i class="fa-solid fa-camera"></i></div>
+                    <h4>Professional Photography</h4>
+                    <p>Mobile Photography (2020)</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="experience">
+        <div class="container">
+            <h2 class="section-title">Professional Journey</h2>
+            <div class="timeline">
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <div class="timeline-date">2022 - Present</div>
+                        <h4>IT Support Specialist</h4>
+                        <p style="color: var(--primary); font-size: 0.95rem; font-weight: 600;">Govt. Reputed Organization</p>
+                        <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.5rem;">Managing nationwide communication networks, system updates, and user technical support.</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <div class="timeline-date">2020 - 2022</div>
+                        <h4>Computer Operator & Graphic Designer</h4>
+                        <p style="color: var(--primary); font-size: 0.95rem; font-weight: 600;">Al Nur, Mirpur</p>
+                        <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.5rem;">Created visual designs, branding materials, and managed daily office digital workflows.</p>
+                    </div>
+                </div>
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <div class="timeline-date">2018 - 2019</div>
+                        <h4>Data Entry Operator</h4>
+                        <p style="color: var(--primary); font-size: 0.95rem; font-weight: 600;">Youth IT Center</p>
+                        <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.5rem;">Handled data presentation, analysis, and bilingual report preparation in Bengali & English.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <section id="projects">
+        <div class="container">
+            <h2 class="section-title">Featured Work & Credentials</h2>
+            <div class="project-grid">
+                <div class="project-card">
+                    <div class="project-img"><i class="fa-brands fa-github"></i></div>
+
+                    <div class="project-info">
+                        <h4>Blood Donation Services</h4>
+                        <p>A web application engineered to manage profiles, locations, and real-time information of blood donors.</p>
+                        <a href="https://github.com/abc555nnn/Blood_Donation_Service" target="_blank" class="project-link">View Repository <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-img"><i class="fa-brands fa-github"></i></div>
+                    <div class="project-info">
+                        <h4>Blood Donation Services</h4>
+                        <p>A web application engineered to manage profiles, locations, and real-time information of blood donors.</p>
+                        <a href="https://github.com/abc555nnn/Blood_Donation_Service" target="_blank" class="project-link">View Repository <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-img"><i class="fa-brands fa-github"></i></div>
+                    <div class="project-info">
+                        <h4>Blood Donation Services</h4>
+                        <p>A web application engineered to manage profiles, locations, and real-time information of blood donors.</p>
+                        <a href="https://github.com/abc555nnn/Blood_Donation_Service" target="_blank" class="project-link">View Repository <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-img"><i class="fa-brands fa-github"></i></div>
+                    <div class="project-info">
+                        <h4>Blood Donation Services</h4>
+                        <p>A web application engineered to manage profiles, locations, and real-time information of blood donors.</p>
+                        <a href="https://github.com/abc555nnn/Blood_Donation_Service" target="_blank" class="project-link">View Repository <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-img"><i class="fa-solid fa-certificate"></i></div>
+                    <div class="project-info">
+                        <h4>CCNA 200-301 Certification</h4>
+                        <p>Trained by Simplilearn Skill Up in advanced networking infrastructure and communications (2026).</p>
+                        <span class="project-link" style="color: var(--text-muted)">Certified</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-img"><i class="fa-solid fa-file-invoice"></i></div>
+                    <div class="project-info">
+                        <h4>Report Management System (RMS)</h4>
+                        <p>Developed understanding and collaborated under a2i program guidelines for automated systems.</p>
+                        <span class="project-link" style="color: var(--text-muted)">a2i Project</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="social-icons" style="margin-bottom: 1.5rem;">
+                <a href="https://github.com/abc555nnn" target="_blank"><i class="fa-brands fa-github"></i></a>
+                <a href="mailto:abc555nnn@gmail.com"><i class="fa-solid fa-envelope"></i></a>
+                <a href="tel:01720361758"><i class="fa-solid fa-phone"></i></a>
+            </div>
+            <p>&copy; 2026 Nizam Uddin. All rights reserved.</p>
+            <p style="font-size: 0.85rem; margin-top: 0.5rem; color: #475569;">Dhaka, Bangladesh</p>
+        </div>
+    </footer>
+
+</body>
+</html>
