@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Engr. Nizam Uddin | Cybersecurity & IT Specialist</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts for Cyber Matrix Aesthetics -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cyber: {
+                            black: '#030807',
+                            dark: '#08120e',
+                            card: 'rgba(8, 24, 18, 0.85)',
+                            green: '#00ff66',
+                            cyan: '#00f3ff',
+                            glow: 'rgba(0, 255, 102, 0.4)',
+                            border: '#00cc52',
+                            dim: '#143825'
+                        }
+                    },
+                    fontFamily: {
+                        orbitron: ['Orbitron', 'sans-serif'],
+                        tech: ['Share Tech Mono', 'monospace'],
+                        rajdhani: ['Rajdhani', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            background-color: #030807;
+            background-image: 
+                radial-gradient(circle at 50% 0%, rgba(0, 243, 255, 0.12) 0%, transparent 50%),
+                radial-gradient(circle at 0% 100%, rgba(0, 255, 102, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 100% 50%, rgba(0, 243, 255, 0.08) 0%, transparent 45%);
+            color: #d1d5db;
+            font-family: 'Rajdhani', sans-serif;
+            overflow-x: hidden;
+            background-attachment: fixed;
+        }
+
+        .hacking-bg-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.12;
+            background-image: 
+                linear-gradient(to right, rgba(0, 255, 102, 0.1) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 255, 102, 0.1) 1px, transparent 1px),
+                url("https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=1920&auto=format&fit=crop");
+            background-size: 40px 40px, 40px 40px, cover;
+            background-position: center;
+            mix-blend-mode: screen;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #030807;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #00ff66;
+            border-radius: 4px;
+            box-shadow: 0 0 10px #00ff66;
+        }
+
+        #matrixCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1;
+            opacity: 0.2;
+            pointer-events: none;
+        }
+
+        .cyber-card {
+            background: rgba(6, 18, 13, 0.85);
+            border: 1px solid rgba(0, 255, 102, 0.35);
+            box-shadow: 0 0 20px rgba(0, 255, 102, 0.1), inset 0 0 15px rgba(0, 243, 255, 0.03);
+            backdrop-filter: blur(12px);
+            clip-path: polygon(
+                0 12px, 12px 0, 
+                calc(100% - 12px) 0, 100% 12px, 
+                100% calc(100% - 12px), calc(100% - 12px) 100%, 
+                12px 100%, 0 calc(100% - 12px)
+            );
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .cyber-card:hover {
+            border-color: #00ff66;
+            box-shadow: 0 0 30px rgba(0, 255, 102, 0.3), 0 0 10px rgba(0, 243, 255, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .cyber-btn {
+            background: rgba(0, 255, 102, 0.12);
+            border: 1px solid #00ff66;
+            color: #00ff66;
+            text-shadow: 0 0 8px rgba(0, 255, 102, 0.7);
+            box-shadow: 0 0 14px rgba(0, 255, 102, 0.25);
+            clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
+            transition: all 0.25s ease;
+        }
+
+        .cyber-btn:hover {
+            background: #00ff66;
+            color: #030807;
+            box-shadow: 0 0 25px rgba(0, 255, 102, 0.8);
+            text-shadow: none;
+            font-weight: 700;
+        }
+
+        .neon-text-glow {
+            text-shadow: 0 0 10px rgba(0, 255, 102, 0.7), 0 0 20px rgba(0, 243, 255, 0.5);
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .animate-marquee {
+            display: flex;
+            width: max-content;
+            animation: marquee 32s linear infinite;
+        }
+
+        .animate-marquee:hover {
+            animation-play-state: paused;
+        }
+
+        body.edit-mode-active [contenteditable="true"] {
+            outline: 2px dashed #00ff66 !important;
+            outline-offset: 4px;
+            background: rgba(0, 255, 102, 0.08);
+            border-radius: 4px;
+            cursor: text;
+        }
+    </style>
+</head>
+<body class="relative">
+
+    <!-- Matrix Code Rain Canvas -->
+    <canvas id="matrixCanvas"></canvas>
+    
+    <!-- Cyber Graphic Overlay -->
+    <div class="hacking-bg-overlay"></div>
+
+    <!-- Editable Controller Floating Bar -->
+    <div class="fixed bottom-6 right-6 z-50 flex items-center space-x-3 bg-cyber-dark/95 border border-cyber-green/50 p-2 rounded-full shadow-[0_0_25px_rgba(0,255,102,0.4)] backdrop-blur-md">
+        <button id="toggleEditBtn" onclick="toggleEditMode()" class="cyber-btn px-4 py-2 text-xs font-tech flex items-center space-x-2 rounded-full">
+            <i class="fa-solid fa-pen-to-square"></i>
+            <span id="editBtnText">ENABLE LIVE EDITING</span>
+        </button>
+        <button onclick="saveChanges()" class="cyber-btn px-3 py-2 text-xs font-tech border-cyber-cyan text-cyber-cyan hover:bg-cyber-cyan rounded-full" title="Save edited page to local browser storage">
+            <i class="fa-solid fa-floppy-disk"></i>
+        </button>
+    </div>
+
+    <!-- TOP CYBER NAVIGATION BAR -->
+    <nav class="fixed top-0 left-0 w-full z-40 bg-cyber-black/85 backdrop-blur-md border-b border-cyber-green/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <i class="fa-solid fa-shield-halved text-cyber-green text-2xl animate-pulse"></i>
+                <span id="editable-logo" class="editable font-orbitron font-extrabold text-lg text-white tracking-wider">
+                    ENG. <span class="text-cyber-green">NIZAM UDDIN</span>
+                </span>
+            </div>
+
+            <!-- Navigation Links -->
+            <div class="hidden md:flex items-center space-x-6 font-tech text-sm">
+                <a href="#about" class="text-gray-300 hover:text-cyber-green transition">// ABOUT</a>
+                <a href="#skills" class="text-gray-300 hover:text-cyber-green transition">// SKILLS</a>
+                <a href="#certs" class="text-gray-300 hover:text-cyber-green transition">// CERTIFICATIONS</a>
+                <a href="#projects" class="text-gray-300 hover:text-cyber-green transition">// PROJECTS</a>
+                <a href="#contact" class="text-gray-300 hover:text-cyber-green transition">// CONTACT</a>
+            </div>
+
+            <div class="flex items-center space-x-3">
+                <a href="#contact" class="cyber-btn px-4 py-1.5 text-xs font-tech font-bold uppercase tracking-wider">
+                    FOR HIRE NIZAM UDDIN
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Container -->
+    <main class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16 space-y-20">
+
+        <!-- HERO SECTION WITH MIXTURE HACKING GRAPHICS & NEON LIGHTS -->
+        <section id="hero" class="relative text-center pt-10 pb-12 px-6 rounded-2xl border border-cyber-green/40 overflow-hidden shadow-[0_0_35px_rgba(0,255,102,0.15)] bg-cyber-dark/80 backdrop-blur-md">
+            <div class="absolute inset-0 z-0 opacity-20 pointer-events-none bg-cover bg-center filter contrast-125 saturate-150" style="background-image: url('https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=1600&auto=format&fit=crop');"></div>
+            
+            <div class="absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 bg-cyber-green/20 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-24 right-10 w-80 h-80 bg-cyber-cyan/20 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="relative z-10">
+                <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full border border-cyber-green/50 bg-cyber-black/80 text-cyber-green text-xs font-tech mb-6 shadow-[0_0_20px_rgba(0,255,102,0.3)]">
+                    <span class="w-2.5 h-2.5 rounded-full bg-cyber-green animate-ping"></span>
+                    <span id="editable-hero-status" class="editable font-semibold"> ALWAYS ACTIVE FOR LEARNING AND SHARING KNOWLEDGE !!!</span>
+                </div>
+
+                <h1 class="font-orbitron text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-widest uppercase mb-4 neon-text-glow">
+                    WELCOME TO <span id="editable-hero-name" class="editable text-cyber-green">NIZAM'S ARCHIVE</span>
+                </h1>
+
+                <p id="editable-hero-subtitle" class="editable font-tech text-base sm:text-lg text-cyber-cyan tracking-wider uppercase max-w-3xl mx-auto mb-8">
+                    ETHICAL HACKER (EH) | CYBER DEFENSE & LOG ANALYST | CCNA | SYSTEM ARCHITECT | SYSTEM ADMIN | DIGITAL FORENSICS | AZURE CLOUD | WEB ENGINEER 
+                </p>
+
+                <div class="flex flex-wrap justify-center gap-4 font-tech">
+                    <a href="#contact" class="cyber-btn px-6 py-3 text-sm tracking-widest font-semibold flex items-center space-x-2">
+                        <i class="fa-solid fa-terminal"></i>
+                        <span>DISPATCH ENCRYPTION</span>
+                    </a>
+                    <button onclick="downloadCV()" class="cyber-btn px-6 py-3 text-sm tracking-widest font-semibold flex items-center space-x-2 border-cyber-cyan text-cyber-cyan hover:bg-cyber-cyan">
+                        <i class="fa-solid fa-download"></i>
+                        <span>DOWNLOAD ARCHIVE CV</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- MAIN PROFILE & TERMINAL ID CARD -->
+        <section id="about" class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+            
+            <!-- Terminal Profile Info Card -->
+            <div class="lg:col-span-7 cyber-card p-6 flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between border-b border-cyber-green/30 pb-3 mb-4">
+                        <div class="flex items-center space-x-2 font-tech text-xs text-cyber-green">
+                            <i class="fa-solid fa-code-branch"></i>
+                            <span id="editable-card-id" class="editable">PROFILE_ID // ENGR-NIZAM-UDDIN</span>
+                        </div>
+                        <div class="font-tech text-xs text-cyber-cyan">
+                            <span>STATUS: </span><span class="text-cyber-green">ACTIVE + OPERATIVE</span>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-6">
+                        <div class="col-span-1 text-center sm:text-left">
+                            <div class="w-32 h-32 mx-auto sm:mx-0 rounded border-2 border-cyber-green p-1 relative group">
+                                <img id="profileImage" src="https://scontent.fdac2-1.fna.fbcdn.net/v/t39.30808-6/897176596_2998332547200351_3291146176170076431_n.jpg?stp=dst-jpg_tt6&cstp=mx2048x2027&ctp=s2048x2027&_nc_cat=111&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=a5f93a&_nc_ohc=jOhnEO3rjQsQ7kNvwGoBpdd&_nc_oc=AdqADbd_pKgRMw2GMZzXKgM9d13rJbI1-bRyKa6Caihis8FJB5kM6FlW99vAElbaOKT-G8OZET59GC6w2wUBIxEo&_nc_zt=23&_nc_ht=scontent.fdac2-1.fna&_nc_gid=DNxlWU7MQPVOoJkh7w3bog&_nc_ss=7b289&oh=00_AQTjDsPxLI8isGwp1Z_WweAK4RlNeOVtY-cEhsrEutjubg&oe=6B063DE5" alt="Engr. Nizam Uddin" class="w-full h-full object-cover rounded filter grayscale group-hover:grayscale-0 transition duration-300">
+                                <button onclick="changeProfilePhoto()" class="absolute bottom-2 right-2 bg-cyber-green text-black w-7 h-7 rounded-full flex items-center justify-center text-xs shadow-lg hover:scale-110 transition" title="Change Image URL">
+                                    <i class="fa-solid fa-camera"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="col-span-2 font-tech space-y-2 text-sm text-gray-300">
+                            <p><span class="text-cyber-green font-bold">NAME:</span> <span id="editable-name" class="editable text-white font-bold">Engr. Nizam Uddin</span></p>
+                            <p><span class="text-cyber-green font-bold">DEGREE:</span> <span id="editable-degree" class="editable">M.Sc in Computer Science & Engineering</span></p>
+                            <p><span class="text-cyber-green font-bold">SPECIALIZATION:</span> <span id="editable-spec" class="editable">Cyber Security, Forensic, Log Analysis, Incident Response & IT Infrastructure</span></p>
+                            <p><span class="text-cyber-green font-bold">INSTITUTION:</span> <span id="editable-varsity" class="editable">National University (1st Class)</span></p>
+                            <p><span class="text-cyber-green font-bold">LOCATION:</span> <span id="editable-loc" class="editable">Dhaka, Bangladesh</span></p>
+                        </div>
+                    </div>
+
+                    <div class="border-t border-cyber-green/20 pt-4">
+                        <h3 class="font-orbitron text-sm font-bold text-white mb-2">// OPERATIONAL OVERVIEW</h3>
+                        <p id="editable-bio" class="editable font-rajdhani text-sm text-gray-300 leading-relaxed">
+                            Versatile Cybersecurity Specialist and IT Infrastructure Architect with expertise in Ethical Hacking, Digital Forensics, and Enterprise Network Security. Demonstrated record operating across government portal management (a2i framework) and implementing secure IT automation systems.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap gap-3 mt-6 pt-4 border-t border-cyber-green/20">
+                    <span class="px-3 py-1 bg-cyber-green/10 border border-cyber-green/30 text-cyber-green text-xs font-tech rounded">Ethical Hacking</span>
+                    <span class="px-3 py-1 bg-cyber-cyan/10 border border-cyber-cyan/30 text-cyber-cyan text-xs font-tech rounded">Digital Forensics</span>
+                    <span class="px-3 py-1 bg-cyber-green/10 border border-cyber-green/30 text-cyber-green text-xs font-tech rounded">CCNA Networking</span>
+                    <span class="px-3 py-1 bg-cyber-cyan/10 border border-cyber-cyan/30 text-cyber-cyan text-xs font-tech rounded">Azure Cloud</span>
+                    <span class="px-3 py-1 bg-cyber-green/10 border border-cyber-green/30 text-cyber-green text-xs font-tech rounded">Software Development</span>
+                    <span class="px-3 py-1 bg-cyber-cyan/10 border border-cyber-cyan/30 text-cyber-cyan text-xs font-tech rounded">Web Engineering</span>
+
+                </div>
+            </div>
+
+            <!-- Quick Matrix Stats & Key Achievements -->
+            <div class="lg:col-span-5 space-y-6">
+                <div class="cyber-card p-6">
+                    <h3 class="font-orbitron text-base font-bold text-white mb-4">// CORE ACCOMPLISHMENTS</h3>
+                    <div class="space-y-4 font-tech text-xs">
+                        <div class="p-3 bg-cyber-black/70 rounded border-l-2 border-cyber-green">
+                            <span class="text-cyber-green font-bold block text-sm">Cisco Certified Ethical Hacker (EH)</span>
+                            <span class="text-gray-400">Penetration Testing, Vulnerability Assessment & Social Engineering</span>
+                        </div>
+                        <div class="p-3 bg-cyber-black/70 rounded border-l-2 border-cyber-cyan">
+                            <span class="text-cyber-cyan font-bold block text-sm">GIAC Digital Forensics Certified</span>
+                            <span class="text-gray-400">Incident Response, FTK Analysis & Artifact Extraction</span>
+                        </div>
+                        <div class="p-3 bg-cyber-black/70 rounded border-l-2 border-cyber-green">
+                            <span class="text-cyber-green font-bold block text-sm">National Portal Specialist (a2i)</span>
+                            <span class="text-gray-400">Deployed and Maintained Govt Front-Office Systems & RMS</span>
+                        </div>
+                        <div class="p-3 bg-cyber-black/70 rounded border-l-2 border-cyber-cyan">
+                            <span class="text-cyber-cyan font-bold block text-sm">CCNA</span>
+                            <span class="text-gray-400">Cisco Certified Network Associate</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cyber-card p-6">
+                    <h3 class="font-orbitron text-base font-bold text-white mb-4">// SECURITY MATRIX METRICS</h3>
+                    <div class="grid grid-cols-2 gap-4 text-center font-orbitron">
+                        <div class="p-4 bg-cyber-black/60 rounded border border-cyber-green/30">
+                            <span id="editable-stat-1" class="editable block text-2xl font-black text-cyber-green">13+</span>
+                            <span class="font-tech text-xs text-gray-400 uppercase">Certifications</span>
+                        </div>
+                        <div class="p-4 bg-cyber-black/60 rounded border border-cyber-cyan/30">
+                            <span id="editable-stat-2" class="editable block text-2xl font-black text-cyber-cyan">100%</span>
+                            <span class="font-tech text-xs text-gray-400 uppercase">1st Class in CSE</span>
+                        </div>
+                        <div class="p-4 bg-cyber-black/60 rounded border border-cyber-cyan/30">
+                            <span id="editable-stat-3" class="editable block text-2xl font-black text-cyber-cyan">15+</span>
+                            <span class="font-tech text-xs text-gray-400 uppercase">IT Tools Mastered</span>
+                        </div>
+                        <div class="p-4 bg-cyber-black/60 rounded border border-cyber-green/30">
+                            <span id="editable-stat-4" class="editable block text-2xl font-black text-cyber-green">24/7</span>
+                            <span class="font-tech text-xs text-gray-400 uppercase">Cyber Defense</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CORE SKILLS TABS SECTION -->
+        <section id="skills" class="space-y-6">
+            <div class="text-center">
+                <h2 class="font-orbitron text-2xl sm:text-3xl font-bold text-white tracking-widest">
+                    // TECHNICAL <span class="text-cyber-green neon-text-glow">CAPABILITIES</span>
+                </h2>
+                <p class="font-tech text-xs sm:text-sm text-gray-400 mt-1">INTERACTIVE ARCHITECTURE // SELECT CATEGORY TO EXPLORE</p>
+            </div>
+
+            <!-- Skill Tab Controls -->
+            <div class="flex flex-wrap justify-center gap-2 border-b border-cyber-green/30 pb-4 font-tech">
+                <button onclick="switchTab('cyber')" id="tab-btn-cyber" class="cyber-btn px-5 py-2 text-xs font-bold active-tab">
+                    <i class="fa-solid fa-shield-virus mr-1"></i> CYBERSECURITY & FORENSICS
+                </button>
+                <button onclick="switchTab('network')" id="tab-btn-network" class="cyber-btn px-5 py-2 text-xs font-bold">
+                    <i class="fa-solid fa-network-wired mr-1"></i> NETWORKING & IT OPS
+                </button>
+                <button onclick="switchTab('dev')" id="tab-btn-dev" class="cyber-btn px-5 py-2 text-xs font-bold">
+                    <i class="fa-solid fa-code mr-1"></i> WEB DEV & PROGRAMMING
+                </button>
+                <button onclick="switchTab('design')" id="tab-btn-design" class="cyber-btn px-5 py-2 text-xs font-bold">
+                    <i class="fa-solid fa-pen-nib mr-1"></i> GRAPHIC & MULTIMEDIA
+                </button>
+            </div>
+
+            <!-- Skill Tab Contents Container -->
+            <div class="cyber-card p-6">
+                
+                <!-- Tab 1: Cybersecurity -->
+                <div id="tab-cyber" class="skill-tab-content grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+                    <div class="p-4 bg-cyber-black/70 rounded border border-cyber-green/30 text-center hover:border-cyber-green transition">
+                        <i class="fa-solid fa-user-ninja text-3xl text-cyber-green mb-2"></i>
+                        <h4 class="font-orbitron text-sm font-bold text-white">Ethical Hacking</h4>
+                        <p class="font-tech text-xs text-gray-400 mt-1">Penetration Testing</p>
+                    </div>
+                    <div class="p-4 bg-cyber-black/70 rounded border border-cyber-green/30 text-center hover:border-cyber-green transition">
+                        <i class="fa-solid fa-magnifying-glass-chart text-3xl text-cyber-green mb-2"></i>
+                        <h4 class="font-orbitron text-sm font-bold text-white">Digital Forensics</h4>
+                        <p class="font-tech text-xs text-gray-400 mt-1">FTK Toolkit / Incident Response</p>
+                    </div>
+                    <div class="p-4 bg-cyber-black/70 rounded border border-cyber-green/30 text-center hover:border-cyber-green transition">
+                        <i class="fa-solid fa-lock text-3xl text-cyber-green mb-2"></i>
+                        <h4 class="font-orbitron text-sm font-bold text-white">Digital Security</h4>
+                        <p class="font-tech text-xs text-gray-400 mt-1">System Hardening</p>
+                    </div>
+                    <div class="p-4 bg-cyber-black/70 rounded border border-cyber-green/30 text-center hover:border-cyber-green transition">
+                        <i class="fa-solid fa-bug text-3xl text-cyber-green mb-2"></i>
+                        <h4 class="font-orbitron text-sm font-bold text-white">Vulnerability Audit</h4>
+                        <p class="font-tech text-xs text-gray-400 mt-1">Threat Analysis</p>
+                    </div>
+                </div>
+
+                <!-- Tab 2: Networking & IT -->
+                <div id="tab-network" class="skill-tab-content hidden grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+                    <div class="p-4 bg-cyber-black/70 rounded border border-cyber-cyan/30 text-center hover:border-cyber-cyan transition">
+                        <i class="fa-solid fa-server text-3xl text-cyber-cyan mb-2"></i>
+                        <h4 class="font-orbitron text-sm font-bold text-white">CCNA Routing</h4>
+                        <p class="font-tech text-xs text-gray-400 mt-1">Cisco Switching & IP Routing</p>
+                    </div>
+                    <div class="p-4 bg-cyber-black/70 rounded border border-cyber-cyan/30 text-center hover:border-cyber-cyan transition">
+                        <i class="fa-solid fa-cloud text-3xl text-cyber-cyan mb-2"></i>
+                        <h4 class="font-orbitron text-sm font-bold text-white">Azure Cloud</h4>
+                        <p class="font-tech text-xs text-gray-400 mt-1">Fundamentals & Security</p>
+                    </div>
+                    <div class="p-4 bg-cyber-black/70 rounded border border-cyber-cyan/30 text-center hover:border-cyber-cyan transition">
+                        <i class="fa-solid fa-globe text-3xl text-cyber-cyan mb-2"></i>
+                        <h4 class="font-orbitron text-sm font-bold text-white">Portal Management</h4>
+                        <p class="font-tech text-xs text-gray-400 mt-1">a2i Framework Governance</p>
+                    </div>
+                    <div class="p-4 bg-cyber-black/70 rounded border border-cyber-cyan/30 text-center hover:border-cyber-cyan transition">
+                        <i class="fa-solid fa-network-wired text-3xl text-cyber-cyan mb-2"></i>
+                        <h4 class="font-orbitron text-sm font-bold text-white">Network Admin</h4>
+                        <p class="font-tech text-xs text-gray-400 mt-1">WAN/LAN Operations</p>
+                    </div>
+                </div>
+
+                <!-- Tab 3: Web Dev & Programming -->
+                <div id="tab-dev" class="skill-tab-content hidden grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+                    <div class="p-4 bg-cyber-black/70 rounded border border-cyber-green/30 text-center hover:border-cyber-green transition">
+                        <i class="fa-brands fa-python text-3xl text-cyber-green mb-2"></i>
+                        <h4 class="font-orbitron text-sm font-bold text-white">Python</h4>
+                        <p class="font-tech text-xs text-gray-400 mt-1">Automation Scripts</p>
+                    </div>
+                    <div class="p-4 bg-cyber-black/70 rounded border border-cyber-green/30 text-center hover:border-cyber-green transition">
+                        <i class="fa-brands fa-java text-3xl text-cyber-green mb-2"></i>
+                        <h4 class="font-orbitron text-sm font-bold text-white">Java</h4>
+                        <p class="font-tech text-xs text-gray-400 mt-1">Software Architecture</p>
+                    </div>
+                    <div class="p-4 bg-cyber-black/70 rounded border border-cyber-green/30 text-center hover:border-cyber-green transition">
+                        <i class="fa-brands fa-html5 text-3xl text-cyber-green mb-2"></i>
+                        <h4 class="font-orbitron text-sm font-bold text-white">HTML5 & CSS3</h4>
+                        <p class="font-tech text-xs text-gray-400 mt-1">Web Applications</p>
+                    </div>
+                    <div class="p-4 bg-cyber-black/70 rounded border border-cyber-green/30 text-center hover:border-cyber-green transition">
+                        <i class="fa-brands fa-searchengin text-3xl text-cyber-green mb-2"></i>
+                        <h4 class="font-orbitron text-sm font-bold text-white">Advanced SEO</h4>
+                        <p class="font-tech text-xs text-gray-400 mt-1">Web Optimization</p>
+                    </div>
+                </div>
+
+                <!-- Tab 4: Graphic & Multimedia -->
+                <div id="tab-design" class="skill-tab-content hidden grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+                    <div class="p-4 bg-cyber-black/70 rounded border border-cyber-cyan/30 text-center hover:border-cyber-cyan transition">
+                        <i class="fa-solid fa-image text-3xl text-cyber-cyan mb-2"></i>
+                        <h4 class="font-orbitron text-sm font-bold text-white">Adobe Photoshop</h4>
+                        <p class="font-tech text-xs text-gray-400 mt-1">Graphic Editing</p>
+                    </div>
+                    <div class="p-4 bg-cyber-black/70 rounded border border-cyber-cyan/30 text-center hover:border-cyber-cyan transition">
+                        <i class="fa-solid fa-vector-square text-3xl text-cyber-cyan mb-2"></i>
+                        <h4 class="font-orbitron text-sm font-bold text-white">Adobe Illustrator</h4>
+                        <p class="font-tech text-xs text-gray-400 mt-1">Vector Illustration</p>
+                    </div>
+                    <div class="p-4 bg-cyber-black/70 rounded border border-cyber-cyan/30 text-center hover:border-cyber-cyan transition">
+                        <i class="fa-solid fa-pen-ruler text-3xl text-cyber-cyan mb-2"></i>
+                        <h4 class="font-orbitron text-sm font-bold text-white">CorelDRAW</h4>
+                        <p class="font-tech text-xs text-gray-400 mt-1">Print & Publication</p>
+                    </div>
+                    <div class="p-4 bg-cyber-black/70 rounded border border-cyber-cyan/30 text-center hover:border-cyber-cyan transition">
+                        <i class="fa-solid fa-clapperboard text-3xl text-cyber-cyan mb-2"></i>
+                        <h4 class="font-orbitron text-sm font-bold text-white">Video Production</h4>
+                        <p class="font-tech text-xs text-gray-400 mt-1">a2i Training Certified</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- AUTO-SCROLLING HORIZONTAL CERTIFICATE CAROUSEL SECTION -->
+        <section id="certs" class="space-y-6">
+            <div class="text-center">
+                <h2 class="font-orbitron text-2xl sm:text-3xl font-bold text-white tracking-widest">
+                    // LICENSES & <span class="text-cyber-green neon-text-glow">CERTIFICATIONS</span>
+                </h2>
+                <p class="font-tech text-xs sm:text-sm text-gray-400 mt-1">AUTO-SCROLLING ARCHIVE // HOVER TO PAUSE // CLICK CARD FOR PREVIEW MODAL</p>
+            </div>
+
+            <!-- Carousel Wrapper -->
+            <div class="overflow-hidden relative w-full py-4 cyber-card border-x-0 sm:border-x">
+                <div class="animate-marquee space-x-6">
+
+                    <!-- Cert 1 -->
+                    <div onclick="openCertModal('Ethical Hacker (EH)', 'Cisco Networking Academy', 'Issued Sep 2026', 'ID: 8211c444-85d5-451d-9d71-701980c5a809', 'Methodological Ethical Hacking, Penetration Testing, Social Engineering', 'https://placehold.co/800x600/08120e/00ff66?text=Cisco+Ethical+Hacker+Certificate')" class="w-80 flex-shrink-0 bg-cyber-black/90 rounded border border-cyber-green/40 p-4 hover:border-cyber-green transition cursor-pointer group">
+                        <div class="h-44 bg-cyber-dark rounded overflow-hidden border border-cyber-dim mb-3 relative">
+                            <img src="https://placehold.co/600x400/08120e/00ff66?text=Ethical+Hacker+EH" alt="Ethical Hacker" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                            <span class="absolute top-2 right-2 px-2 py-0.5 bg-cyber-green text-black font-tech text-[10px] font-bold rounded">VERIFIED</span>
+                        </div>
+                        <h3 class="font-orbitron text-sm font-bold text-white group-hover:text-cyber-green transition truncate">Ethical Hacker (EH)</h3>
+                        <p class="font-tech text-xs text-cyber-cyan mb-1">Cisco Networking Academy</p>
+                        <p class="font-tech text-[11px] text-gray-400 mb-3">Issued: Sep 2026</p>
+                        <a href="https://www.netacad.com" target="_blank" onclick="event.stopPropagation()" class="inline-flex items-center text-xs font-tech text-cyber-green hover:underline">
+                            <i class="fa-solid fa-arrow-up-right-from-square mr-1 text-[10px]"></i> SHOW CREDENTIAL
+                        </a>
+                    </div>
+
+                    <!-- Cert 2 -->
+                    <div onclick="openCertModal('GIAC Digital Forensics & Incident Response', 'Securis360 Inc.', 'Issued Aug 2026', 'ID: b4c9608260e590fb', 'Forensic Analysis, FTK, Artifact Extraction', 'https://placehold.co/800x600/08120e/00f3ff?text=GIAC+Digital+Forensics+Certificate')" class="w-80 flex-shrink-0 bg-cyber-black/90 rounded border border-cyber-green/40 p-4 hover:border-cyber-green transition cursor-pointer group">
+                        <div class="h-44 bg-cyber-dark rounded overflow-hidden border border-cyber-dim mb-3 relative">
+                            <img src="https://placehold.co/600x400/08120e/00f3ff?text=GIAC+Digital+Forensics" alt="Digital Forensics" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                            <span class="absolute top-2 right-2 px-2 py-0.5 bg-cyber-cyan text-black font-tech text-[10px] font-bold rounded">VERIFIED</span>
+                        </div>
+                        <h3 class="font-orbitron text-sm font-bold text-white group-hover:text-cyber-cyan transition truncate">GIAC Digital Forensics</h3>
+                        <p class="font-tech text-xs text-cyber-cyan mb-1">Securis360 Inc.</p>
+                        <p class="font-tech text-[11px] text-gray-400 mb-3">Issued: Aug 2026</p>
+                        <a href="https://securis360.com" target="_blank" onclick="event.stopPropagation()" class="inline-flex items-center text-xs font-tech text-cyber-cyan hover:underline">
+                            <i class="fa-solid fa-arrow-up-right-from-square mr-1 text-[10px]"></i> SHOW CREDENTIAL
+                        </a>
+                    </div>
+
+                    <!-- Cert 3 -->
+                    <div onclick="openCertModal('Introduction to Modern AI', 'Cisco Networking Academy', 'Issued Aug 2026', 'ID: a0481289-fq66-4e3b-86af-82ee035b31ba', 'Artificial Intelligence, Neural Concepts', 'https://placehold.co/800x600/08120e/00ff66?text=Modern+AI+Certificate')" class="w-80 flex-shrink-0 bg-cyber-black/90 rounded border border-cyber-green/40 p-4 hover:border-cyber-green transition cursor-pointer group">
+                        <div class="h-44 bg-cyber-dark rounded overflow-hidden border border-cyber-dim mb-3 relative">
+                            <img src="https://placehold.co/600x400/08120e/00ff66?text=Modern+AI" alt="Modern AI" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                            <span class="absolute top-2 right-2 px-2 py-0.5 bg-cyber-green text-black font-tech text-[10px] font-bold rounded">VERIFIED</span>
+                        </div>
+                        <h3 class="font-orbitron text-sm font-bold text-white group-hover:text-cyber-green transition truncate">Introduction to Modern AI</h3>
+                        <p class="font-tech text-xs text-cyber-cyan mb-1">Cisco Networking Academy</p>
+                        <p class="font-tech text-[11px] text-gray-400 mb-3">Issued: Aug 2026</p>
+                        <a href="https://www.netacad.com" target="_blank" onclick="event.stopPropagation()" class="inline-flex items-center text-xs font-tech text-cyber-green hover:underline">
+                            <i class="fa-solid fa-arrow-up-right-from-square mr-1 text-[10px]"></i> SHOW CREDENTIAL
+                        </a>
+                    </div>
+
+                    <!-- Cert 4 -->
+                    <div onclick="openCertModal('National Portal Management', 'ICT Division / a2i Framework', 'Issued Feb 2023', 'National Portal Govt Cert', 'Portal Governance, Front-Office Systems', 'https://placehold.co/800x600/08120e/00f3ff?text=National+Portal+Management')" class="w-80 flex-shrink-0 bg-cyber-black/90 rounded border border-cyber-green/40 p-4 hover:border-cyber-green transition cursor-pointer group">
+                        <div class="h-44 bg-cyber-dark rounded overflow-hidden border border-cyber-dim mb-3 relative">
+                            <img src="https://placehold.co/600x400/08120e/00f3ff?text=National+Portal+Mgmt" alt="National Portal Management" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                            <span class="absolute top-2 right-2 px-2 py-0.5 bg-cyber-cyan text-black font-tech text-[10px] font-bold rounded">GOVT</span>
+                        </div>
+                        <h3 class="font-orbitron text-sm font-bold text-white group-hover:text-cyber-cyan transition truncate">National Portal Management</h3>
+                        <p class="font-tech text-xs text-cyber-cyan mb-1">ICT Division / a2i</p>
+                        <p class="font-tech text-[11px] text-gray-400 mb-3">Issued: Feb 2023</p>
+                        <a href="https://bangladesh.gov.bd" target="_blank" onclick="event.stopPropagation()" class="inline-flex items-center text-xs font-tech text-cyber-cyan hover:underline">
+                            <i class="fa-solid fa-arrow-up-right-from-square mr-1 text-[10px]"></i> SHOW CREDENTIAL
+                        </a>
+                    </div>
+
+                    <!-- Cert 5 -->
+                    <div onclick="openCertModal('Online Report Management System (RMS)', 'a2i Program', 'Issued Dec 2022', 'a2i RMS System Cert', 'Dual Mode Reporting, Workflow Automation', 'https://placehold.co/800x600/08120e/00ff66?text=RMS+Certificate')" class="w-80 flex-shrink-0 bg-cyber-black/90 rounded border border-cyber-green/40 p-4 hover:border-cyber-green transition cursor-pointer group">
+                        <div class="h-44 bg-cyber-dark rounded overflow-hidden border border-cyber-dim mb-3 relative">
+                            <img src="https://placehold.co/600x400/08120e/00ff66?text=Online+RMS" alt="RMS Certificate" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                            <span class="absolute top-2 right-2 px-2 py-0.5 bg-cyber-green text-black font-tech text-[10px] font-bold rounded">a2i SYSTEM</span>
+                        </div>
+                        <h3 class="font-orbitron text-sm font-bold text-white group-hover:text-cyber-green transition truncate">Report Management System</h3>
+                        <p class="font-tech text-xs text-cyber-cyan mb-1">a2i Program</p>
+                        <p class="font-tech text-[11px] text-gray-400 mb-3">Issued: Dec 2022</p>
+                        <a href="https://a2i.gov.bd" target="_blank" onclick="event.stopPropagation()" class="inline-flex items-center text-xs font-tech text-cyber-green hover:underline">
+                            <i class="fa-solid fa-arrow-up-right-from-square mr-1 text-[10px]"></i> SHOW CREDENTIAL
+                        </a>
+                    </div>
+
+                    <!-- Cert 6 -->
+                    <div onclick="openCertModal('Microsoft Certified: Azure Fundamentals', 'a2i / Hi-Tech Park Authority', 'Issued Sep 2022', 'Cloud Fundamental Cert', 'Azure Infrastructure, Cloud Security', 'https://placehold.co/800x600/08120e/00f3ff?text=Azure+Fundamentals+Certificate')" class="w-80 flex-shrink-0 bg-cyber-black/90 rounded border border-cyber-green/40 p-4 hover:border-cyber-green transition cursor-pointer group">
+                        <div class="h-44 bg-cyber-dark rounded overflow-hidden border border-cyber-dim mb-3 relative">
+                            <img src="https://placehold.co/600x400/08120e/00f3ff?text=Azure+Fundamentals" alt="Azure Fundamentals" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                            <span class="absolute top-2 right-2 px-2 py-0.5 bg-cyber-cyan text-black font-tech text-[10px] font-bold rounded">CLOUD</span>
+                        </div>
+                        <h3 class="font-orbitron text-sm font-bold text-white group-hover:text-cyber-cyan transition truncate">Azure Fundamentals</h3>
+                        <p class="font-tech text-xs text-cyber-cyan mb-1">a2i / Hi-Tech Park</p>
+                        <p class="font-tech text-[11px] text-gray-400 mb-3">Issued: Sep 2022</p>
+                        <a href="https://azure.microsoft.com" target="_blank" onclick="event.stopPropagation()" class="inline-flex items-center text-xs font-tech text-cyber-cyan hover:underline">
+                            <i class="fa-solid fa-arrow-up-right-from-square mr-1 text-[10px]"></i> SHOW CREDENTIAL
+                        </a>
+                    </div>
+
+                    <!-- DUPLICATES FOR INFINITE SMOOTH LOOP -->
+                    <div onclick="openCertModal('Ethical Hacker (EH)', 'Cisco Networking Academy', 'Issued Sep 2026', 'ID: 8211c444-85d5-451d-9d71-701980c5a809', 'Methodological Ethical Hacking, Penetration Testing, Social Engineering', 'https://placehold.co/800x600/08120e/00ff66?text=Cisco+Ethical+Hacker+Certificate')" class="w-80 flex-shrink-0 bg-cyber-black/90 rounded border border-cyber-green/40 p-4 hover:border-cyber-green transition cursor-pointer group">
+                        <div class="h-44 bg-cyber-dark rounded overflow-hidden border border-cyber-dim mb-3 relative">
+                            <img src="https://placehold.co/600x400/08120e/00ff66?text=Ethical+Hacker+EH" alt="Ethical Hacker" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                            <span class="absolute top-2 right-2 px-2 py-0.5 bg-cyber-green text-black font-tech text-[10px] font-bold rounded">VERIFIED</span>
+                        </div>
+                        <h3 class="font-orbitron text-sm font-bold text-white group-hover:text-cyber-green transition truncate">Ethical Hacker (EH)</h3>
+                        <p class="font-tech text-xs text-cyber-cyan mb-1">Cisco Networking Academy</p>
+                        <p class="font-tech text-[11px] text-gray-400 mb-3">Issued: Sep 2026</p>
+                        <a href="https://www.netacad.com" target="_blank" onclick="event.stopPropagation()" class="inline-flex items-center text-xs font-tech text-cyber-green hover:underline">
+                            <i class="fa-solid fa-arrow-up-right-from-square mr-1 text-[10px]"></i> SHOW CREDENTIAL
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- FEATURED PROJECTS ARCHIVE SECTION -->
+        <section id="projects" class="space-y-6">
+            <div class="text-center">
+                <h2 class="font-orbitron text-2xl sm:text-3xl font-bold text-white tracking-widest">
+                    // SYSTEM & <span class="text-cyber-green neon-text-glow">PROJECT ARCHIVES</span>
+                </h2>
+                <p class="font-tech text-xs sm:text-sm text-gray-400 mt-1">REAL-WORLD DEPLOYMENTS & SOFTWARE INFRASTRUCTURE</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+                <!-- Project Item 1 -->
+                <div class="cyber-card p-5 flex flex-col justify-between">
+                    <div>
+                        <div class="h-48 bg-cyber-dark rounded overflow-hidden border border-cyber-dim mb-4 relative">
+                            <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600&auto=format&fit=crop" alt="Blood Donation Portal" class="w-full h-full object-cover">
+                            <span class="absolute top-2 left-2 px-2 py-0.5 bg-cyber-green/90 text-black font-tech text-[10px] font-bold rounded">WEB APP</span>
+                        </div>
+                        <h3 id="editable-p1-title" class="editable font-orbitron text-base font-bold text-white mb-2">Blood Donation Portal</h3>
+                        <p id="editable-p1-desc" class="editable font-rajdhani text-xs text-gray-300 leading-relaxed mb-4">
+                            Centralized online system for real-time donor directory, blood group matching, emergency request notifications, and security-hardened authentication.
+                        </p>
+                    </div>
+                    <div>
+                        <div class="flex flex-wrap gap-1.5 font-tech text-[10px] mb-4">
+                            <span class="px-2 py-0.5 bg-cyber-black text-cyber-green border border-cyber-green/30 rounded">HTML5/CSS3</span>
+                            <span class="px-2 py-0.5 bg-cyber-black text-cyber-cyan border border-cyber-cyan/30 rounded">JavaScript</span>
+                            <span class="px-2 py-0.5 bg-cyber-black text-cyber-green border border-cyber-green/30 rounded">MySQL</span>
+                        </div>
+                        <button onclick="openProjectModal('Blood Donation Services System', 'Engineered profile management, location indexing, and donor security database.', 'HTML5, CSS3, JS, PHP, Database Hardening')" class="cyber-btn w-full py-2 text-xs font-tech">VIEW ARCHIVE DEPLOYMENT</button>
+                    </div>
+                </div>
+
+                <!-- Project Item 2 -->
+                <div class="cyber-card p-5 flex flex-col justify-between">
+                    <div>
+                        <div class="h-48 bg-cyber-dark rounded overflow-hidden border border-cyber-dim mb-4 relative">
+                            <img src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=600&auto=format&fit=crop" alt="Prisoner Management System" class="w-full h-full object-cover">
+                            <span class="absolute top-2 left-2 px-2 py-0.5 bg-cyber-cyan/90 text-black font-tech text-[10px] font-bold rounded">ENTERPRISE SYSTEM</span>
+                        </div>
+                        <h3 id="editable-p2-title" class="editable font-orbitron text-base font-bold text-white mb-2">Prisoner Management System (PMS)</h3>
+                        <p id="editable-p2-desc" class="editable font-rajdhani text-xs text-gray-300 leading-relaxed mb-4">
+                            Digital record management architecture built for confidential record tracking, biometric identification matching, and automated sentence logs.
+                        </p>
+                    </div>
+                    <div>
+                        <div class="flex flex-wrap gap-1.5 font-tech text-[10px] mb-4">
+                            <span class="px-2 py-0.5 bg-cyber-black text-cyber-cyan border border-cyber-cyan/30 rounded">Python</span>
+                            <span class="px-2 py-0.5 bg-cyber-black text-cyber-green border border-cyber-green/30 rounded">Secure Database</span>
+                            <span class="px-2 py-0.5 bg-cyber-black text-cyber-cyan border border-cyber-cyan/30 rounded">Role-ACL</span>
+                        </div>
+                        <button onclick="openProjectModal('Prisoner Management System (PMS)', 'Advanced inmate data management system designed with strict access control and audit trails.', 'Python, Custom Encrypted DB, Role Access Control')" class="cyber-btn w-full py-2 text-xs font-tech">VIEW ARCHIVE DEPLOYMENT</button>
+                    </div>
+                </div>
+
+                <!-- Project Item 3 -->
+                <div class="cyber-card p-5 flex flex-col justify-between">
+                    <div>
+                        <div class="h-48 bg-cyber-dark rounded overflow-hidden border border-cyber-dim mb-4 relative">
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=600&auto=format&fit=crop" alt="Report Management System" class="w-full h-full object-cover">
+                            <span class="absolute top-2 left-2 px-2 py-0.5 bg-cyber-green/90 text-black font-tech text-[10px] font-bold rounded">GOVT ARCHITECTURE</span>
+                        </div>
+                        <h3 id="editable-p3-title" class="editable font-orbitron text-base font-bold text-white mb-2">Report Management System (RMS)</h3>
+                        <p id="editable-p3-desc" class="editable font-rajdhani text-xs text-gray-300 leading-relaxed mb-4">
+                            Dual-mode daily report management tool developed under a2i frameworks to streamline internal departmental workflows and record submission.
+                        </p>
+                    </div>
+                    <div>
+                        <div class="flex flex-wrap gap-1.5 font-tech text-[10px] mb-4">
+                            <span class="px-2 py-0.5 bg-cyber-black text-cyber-green border border-cyber-green/30 rounded">a2i Framework</span>
+                            <span class="px-2 py-0.5 bg-cyber-black text-cyber-cyan border border-cyber-cyan/30 rounded">Web Automation</span>
+                            <span class="px-2 py-0.5 bg-cyber-black text-cyber-green border border-cyber-green/30 rounded">Analytics</span>
+                        </div>
+                        <button onclick="openProjectModal('Report Management System (RMS)', 'Designed for public sector automation, featuring dual-mode reporting and dynamic analytics.', 'a2i Portal Engine, JavaScript, Data Pipeline')" class="cyber-btn w-full py-2 text-xs font-tech">VIEW ARCHIVE DEPLOYMENT</button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- CONTACT & ENCRYPTED TRANSMISSION SECTION -->
+        <section id="contact" class="cyber-card p-6 sm:p-10 max-w-4xl mx-auto">
+            <div class="text-center mb-8">
+                <h2 class="font-orbitron text-2xl font-bold text-white tracking-widest">// DISPATCH <span class="text-cyber-green neon-text-glow">ENCRYPTED MESSAGE</span></h2>
+                <p class="font-tech text-xs text-gray-400 mt-1">DIRECT OPERATIONAL COMMUNICATOR FOR CONSULTATION OR HIRING</p>
+            </div>
+
+            <form onsubmit="handleContactSubmit(event)" class="space-y-4 font-tech text-xs">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-cyber-green mb-1 font-bold">OPERATIVE / SENDER NAME *</label>
+                        <input type="text" required placeholder="Type Your Name Here" class="w-full bg-cyber-black/90 border border-cyber-green/40 rounded p-3 text-white focus:border-cyber-green focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-cyber-green mb-1 font-bold">RETURN EMAIL ADDRESS *</label>
+                        <input type="email" required placeholder="operative@domain.com" class="w-full bg-cyber-black/90 border border-cyber-green/40 rounded p-3 text-white focus:border-cyber-green focus:outline-none">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-cyber-green mb-1 font-bold">ENCRYPTED DISPATCH MESSAGE *</label>
+                    <textarea rows="4" required placeholder="Type your security inquiry or project outline here..." class="w-full bg-cyber-black/90 border border-cyber-green/40 rounded p-3 text-white focus:border-cyber-green focus:outline-none"></textarea>
+                </div>
+                <div class="text-center pt-2">
+                    <button type="submit" class="cyber-btn px-8 py-3 text-sm font-bold uppercase tracking-widest">
+                        <i class="fa-solid fa-paper-plane mr-2"></i> TRANSMIT DATA PACKET
+                    </button>
+                </div>
+            </form>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="relative z-10 border-t border-cyber-green/30 bg-cyber-black py-8 font-tech text-xs text-center text-gray-400">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div>
+                <span class="text-cyber-green font-bold">ENGR. NIZAM UDDIN</span> &copy; 2026 // ALL RIGHTS RESERVED
+            </div>
+            <div class="flex items-center space-x-4 text-base">
+                <a href="#" class="text-gray-400 hover:text-cyber-green transition"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="#" class="text-gray-400 hover:text-cyber-green transition"><i class="fa-brands fa-github"></i></a>
+                <a href="#" class="text-gray-400 hover:text-cyber-cyan transition"><i class="fa-solid fa-envelope"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- CERTIFICATION PREVIEW MODAL -->
+    <div id="certModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="cyber-card max-w-2xl w-full p-6 relative">
+            <button onclick="closeCertModal()" class="absolute top-4 right-4 text-cyber-green hover:text-white text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="flex items-center space-x-3 border-b border-cyber-green/30 pb-3 mb-4">
+                <i class="fa-solid fa-award text-2xl text-cyber-green"></i>
+                <h3 id="modalTitle" class="font-orbitron text-lg font-bold text-white">Cert Title</h3>
+            </div>
+
+            <div class="mb-4 h-64 bg-cyber-black rounded border border-cyber-green/40 overflow-hidden relative">
+                <img id="modalImage" src="" alt="Certificate Full Preview" class="w-full h-full object-contain">
+            </div>
+
+            <div class="space-y-2 font-tech text-xs text-gray-300">
+                <p><span class="text-cyber-green font-bold">ISSUING AUTHORITY:</span> <span id="modalIssuer">Authority</span></p>
+                <p><span class="text-cyber-green font-bold">DATE OF ISSUANCE:</span> <span id="modalDate">Date</span></p>
+                <p><span class="text-cyber-green font-bold">CREDENTIAL VERIFICATION:</span> <span id="modalCred">ID</span></p>
+                <p><span class="text-cyber-green font-bold">KEY COMPETENCIES:</span> <span id="modalSkills">Skills</span></p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-cyber-green/20 text-right">
+                <button onclick="closeCertModal()" class="cyber-btn px-4 py-1.5 text-xs">CLOSE TERMINAL</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PROJECT PREVIEW MODAL -->
+    <div id="projectModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="cyber-card max-w-xl w-full p-6 relative">
+            <button onclick="closeProjectModal()" class="absolute top-4 right-4 text-cyber-cyan hover:text-white text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="flex items-center space-x-3 border-b border-cyber-cyan/30 pb-3 mb-4">
+                <i class="fa-solid fa-diagram-project text-2xl text-cyber-cyan"></i>
+                <h3 id="projModalTitle" class="font-orbitron text-lg font-bold text-white">Project Title</h3>
+            </div>
+            <div class="space-y-4 font-tech text-xs text-gray-300">
+                <p id="projModalDesc" class="leading-relaxed">Project Details...</p>
+                <p><span class="text-cyber-cyan font-bold">TECH STACK ARCHITECTURE:</span> <span id="projModalStack">Stack</span></p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-cyber-cyan/20 text-right">
+                <button onclick="closeProjectModal()" class="cyber-btn px-4 py-1.5 text-xs border-cyber-cyan text-cyber-cyan hover:bg-cyber-cyan">CLOSE MODAL</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPT LOGIC -->
+    <script>
+        // Matrix Canvas Rain Effect
+        const canvas = document.getElementById('matrixCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*+-/<>[]{}';
+        const fontSize = 14;
+        let columns = Math.floor(canvas.width / fontSize);
+        let drops = [];
+
+        function initDrops() {
+            columns = Math.floor(canvas.width / fontSize);
+            drops = [];
+            for (let i = 0; i < columns; i++) {
+                drops[i] = Math.random() * -100;
+            }
+        }
+        initDrops();
+
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(3, 8, 7, 0.08)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#00ff66';
+            ctx.font = `${fontSize}px Share Tech Mono`;
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = characters.charAt(Math.floor(Math.random() * characters.length));
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        window.onload = function() {
+            setInterval(drawMatrix, 35);
+            loadSavedEdits();
+        };
+
+        // Skill Tab Switcher
+        function switchTab(tabId) {
+            document.querySelectorAll('.skill-tab-content').forEach(tab => tab.classList.add('hidden'));
+            document.querySelectorAll('#skills button').forEach(btn => btn.classList.remove('active-tab', 'bg-cyber-green', 'text-black'));
+            
+            document.getElementById(`tab-${tabId}`).classList.remove('hidden');
+            const activeBtn = document.getElementById(`tab-btn-${tabId}`);
+            if (activeBtn) activeBtn.classList.add('active-tab');
+        }
+
+        // Live Editing Mode Handler
+        let isEditMode = false;
+        function toggleEditMode() {
+            isEditMode = !isEditMode;
+            document.body.classList.toggle('edit-mode-active', isEditMode);
+            
+            const editableElements = document.querySelectorAll('.editable');
+            editableElements.forEach(el => {
+                el.contentEditable = isEditMode;
+            });
+
+            const btnText = document.getElementById('editBtnText');
+            btnText.innerText = isEditMode ? 'DISABLE EDITING' : 'ENABLE LIVE EDITING';
+            btnText.parentElement.style.borderColor = isEditMode ? '#00f3ff' : '#00ff66';
+        }
+
+        function saveChanges() {
+            const dataToSave = {};
+            document.querySelectorAll('.editable').forEach(el => {
+                if (el.id) {
+                    dataToSave[el.id] = el.innerHTML;
+                }
+            });
+            localStorage.setItem('nizam_portfolio_data', JSON.stringify(dataToSave));
+            alert('Archive edits successfully stored in local session!');
+        }
+
+        function loadSavedEdits() {
+            const saved = localStorage.getItem('nizam_portfolio_data');
+            if (saved) {
+                const data = JSON.parse(saved);
+                Object.keys(data).forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) el.innerHTML = data[id];
+                });
+            }
+        }
+
+        function changeProfilePhoto() {
+            const newUrl = prompt('Enter image URL for profile photo:', document.getElementById('profileImage').src);
+            if (newUrl) {
+                document.getElementById('profileImage').src = newUrl;
+            }
+        }
+
+        // Certificate Modal Viewer
+        function openCertModal(title, issuer, date, cred, skills, imgUrl) {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalIssuer').innerText = issuer;
+            document.getElementById('modalDate').innerText = date;
+            document.getElementById('modalCred').innerText = cred;
+            document.getElementById('modalSkills').innerText = skills;
+            document.getElementById('modalImage').src = imgUrl;
+            document.getElementById('certModal').classList.remove('hidden');
+        }
+
+        function closeCertModal() {
+            document.getElementById('certModal').classList.add('hidden');
+        }
+
+        // Project Modal Viewer
+        function openProjectModal(title, desc, stack) {
+            document.getElementById('projModalTitle').innerText = title;
+            document.getElementById('projModalDesc').innerText = desc;
+            document.getElementById('projModalStack').innerText = stack;
+            document.getElementById('projectModal').classList.remove('hidden');
+        }
+
+        function closeProjectModal() {
+            document.getElementById('projectModal').classList.add('hidden');
+        }
+
+        function handleContactSubmit(e) {
+            e.preventDefault();
+            alert('Encrypted packet sent! Operational response will be dispatched to your email.');
+            e.target.reset();
+        }
+
+        function downloadCV() {
+            alert('Initializing download stream for Engr. Nizam Uddin - Cyber Security & IT CV.');
+        }
+    </script>
+</body>
+</html>
